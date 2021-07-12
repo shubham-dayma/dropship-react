@@ -6,7 +6,7 @@ class Header extends Component{
 	render(){
 		return <header>
 					<Navbar bg="light" expand="lg">
-					  <Navbar.Brand as={Link} to="/">First App</Navbar.Brand>
+					  <Navbar.Brand as={Link} to="/">Dropship</Navbar.Brand>
 					  <Navbar.Toggle aria-controls="basic-navbar-nav" />
 					  <Navbar.Collapse id="basic-navbar-nav">
 					    <Nav className="mr-auto">

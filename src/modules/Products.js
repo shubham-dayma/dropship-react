@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {Table, Button} from 'react-bootstrap';
 import * as Icon from 'react-bootstrap-icons';
+import $ from 'jquery';
 
 class Products extends Component{
 	constructor(props) {
@@ -26,6 +27,35 @@ class Products extends Component{
 	      });
 	    })
 	    .catch(err => {})
+	}
+
+	handleDelete(id){
+		this.props.axios
+            .delete('dropshipping/products?id='+id)
+            .then((res) => {
+            	this.props.toast.info(res.data.msg);
+                this.getProducts();
+            })
+            .catch((err) => {
+            	
+            	let error_txt = "";
+            	
+            	if(err.response.data)
+            	{
+            		$.each(err.response.data, function(index, value){
+            			error_txt += index+' : '+value+'\n';
+            		});
+				}
+            	
+            	if(error_txt.length > 0)
+            	{
+            		this.props.toast.dark(error_txt);
+            	}	
+            	else
+            	{
+            		this.props.toast.dark('Something Went Wrong');
+            	}
+            });
 	}
 	
 	render(){
@@ -63,7 +93,7 @@ class Products extends Component{
 								      		}
 								      	</td>
 								      	<td>
-											<Icon.Trash className="text-danger"/>
+											<Icon.Trash className="text-danger" onClick={() => this.handleDelete(product.id)}/>
 								      	</td>
 								    </tr>
 							    ))
